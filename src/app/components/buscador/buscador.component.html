@@ -1,0 +1,18 @@
+<form [formGroup]="formulario" (ngSubmit)="emitirBusqueda()">
+  <p-dropdown
+    formControlName="query"
+    [options]="estados"
+    optionLabel="label"
+    optionValue="cod"
+    placeholder="Estado a filtrar"
+    styleClass="border-round-left-3xl p-2"
+    [showClear]="true"
+  ></p-dropdown>
+
+  <p-button
+    icon="pi pi-search"
+    styleClass="border-round-right-3xl p-3"
+    severity="success"
+    type="submit"
+  ></p-button>
+</form>

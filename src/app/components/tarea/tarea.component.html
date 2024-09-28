@@ -1,0 +1,72 @@
+<form class="p-fluid" [formGroup]="formulario">
+  <div class="formgrid grid">
+    <div class="field col-12 md:col-6">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" formControlName="nombre" pInputText />
+    </div>
+    <div class="field col-12 md:col-6">
+      <label for="fecha">Fecha limite</label>
+      <p-calendar
+        id="fecha"
+        formControlName="fechaLimite"
+        appendTo="body"
+      ></p-calendar>
+    </div>
+  </div>
+
+  <div class="flex flex-column col-12 p-0">
+    <div class="flex col p-0 align-items-center">
+      <div class="flex col-9 p-0">Personas</div>
+      <div class="flex p-0 justify-content-end col-3">
+        <p-button
+          label="Agregar"
+          (onClick)="abrirDialogoCrearPersona()"
+        ></p-button>
+      </div>
+    </div>
+    @for (persona of personas; track $index) {
+    <div class="flex col-12 px-2 mt-1 align-items-center border-1 border-200">
+      <div class="col-4 p-0">
+        <p><i class="mr-2 pi pi-user"></i> {{ persona.nombreCompleto }}</p>
+      </div>
+      <div class="col-4 p-0">
+        @for (habilidad of persona.habilidades; track $index) {
+        <p-chip [label]="habilidad" class="ml-1"></p-chip>
+        }
+      </div>
+      <div class="flex justify-content-end p-0 col-4">
+        <p-button
+          icon="pi pi-minus"
+          severity="danger"
+          [rounded]="true"
+          (onClick)="eliminarPersona($index)"
+        ></p-button>
+      </div>
+    </div>
+    }@empty {
+    <div class="flex p-0 col-12">
+      <p class="text-color-secondary">
+        No hay personas registradas en este momento
+      </p>
+    </div>
+    }
+  </div>
+
+  <div class="flex justify-content-end gap-2 mt-2">
+    <p-button
+      [text]="true"
+      [plain]="true"
+      label="Volver"
+      icon="pi pi-angle-left"
+      (onClick)="cerrarDialogo()"
+    ></p-button>
+    <p-button
+      label="Guardar"
+      icon="pi pi-save"
+      type="submit"
+      (onClick)="cerrarDialogo(true)"
+    ></p-button>
+  </div>
+</form>
+
+<p-toast></p-toast>

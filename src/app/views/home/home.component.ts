@@ -49,23 +49,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  obtenerLabelBtnCambiarEstado(tarea: Tarea) {
-    return `Marcar como ${
-      this.esTareaCompletada(tarea) ? Estado.PENDIENTE : Estado.COMPLETA
-    }`;
-  }
-
-  cambiarEstadoTarea(tarea: Tarea) {
-    tarea.estado = this.esTareaCompletada(tarea)
-      ? Estado.PENDIENTE
-      : Estado.COMPLETA;
-    this.editarTarea(tarea);
-  }
-
-  esTareaCompletada(tarea: Tarea) {
-    return tarea.estado == Estado.COMPLETA ? true : false;
-  }
-
   editarTarea(tarea: Tarea) {
     this._tareaService.editar(tarea.id, tarea);
     this.refrescarTareas();
@@ -75,6 +58,23 @@ export class HomeComponent implements OnInit {
     tarea.estado = Estado.PENDIENTE;
     this._tareaService.crear(tarea);
     this.refrescarTareas();
+  }
+
+  obtenerLabelBtnCambiarEstado(tarea: Tarea) {
+    return `Marcar como ${
+      this.esTareaCompletada(tarea) ? Estado.PENDIENTE : Estado.COMPLETA
+    }`;
+  }
+  
+  esTareaCompletada(tarea: Tarea) {
+    return tarea.estado == Estado.COMPLETA ? true : false;
+  }
+
+  cambiarEstadoTarea(tarea: Tarea) {
+    tarea.estado = this.esTareaCompletada(tarea)
+      ? Estado.PENDIENTE
+      : Estado.COMPLETA;
+    this.editarTarea(tarea);
   }
 
   buscarPorEstado(event: any) {
